@@ -147,6 +147,10 @@ static const char *const longstats[] =
   NULL
 };
 
+
+/* If true, do not show the exit message */
+static boolean quiet;
+
 /* If true, show an English description next to each statistic.  */
 static boolean verbose;
 
@@ -172,6 +176,7 @@ static struct option longopts[] =
   {"help", no_argument, NULL, 'h'},
   {"output-file", required_argument, NULL, 'o'},
   {"portability", no_argument, NULL, 'p'},
+  {"quiet", no_argument,NULL, 'q'},
   {"verbose", no_argument, NULL, 'v'},
   {"version", no_argument, NULL, 'V'},
   {NULL, no_argument, NULL, 0}
@@ -333,7 +338,8 @@ summarize (fp, fmt, command, resp)
   else if (WIFSIGNALED (resp->waitstatus))
     fprintf (fp, "Command terminated by signal %d\n",
 	     WTERMSIG (resp->waitstatus));
-  else if (WIFEXITED (resp->waitstatus) && WEXITSTATUS (resp->waitstatus))
+  else if (WIFEXITED (resp->waitstatus) && WEXITSTATUS (resp->waitstatus)
+	   && !quiet)
     fprintf (fp, "Command exited with non-zero status %d\n",
 	     WEXITSTATUS (resp->waitstatus));
 
@@ -523,6 +529,7 @@ getargs (argc, argv)
   char *format;			/* Format found in environment.  */
 
   /* Initialize the option flags.  */
+  quiet = false;
   verbose = false;
   outfile = NULL;
   outfp = stderr;
@@ -536,7 +543,7 @@ getargs (argc, argv)
   if (format)
     output_format = format;
 
-  while ((optc = getopt_long (argc, argv, "+af:o:pvV", longopts, (int *) 0))
+  while ((optc = getopt_long (argc, argv, "+af:o:pqvV", longopts, (int *) 0))
 	 != EOF)
     {
       switch (optc)
@@ -554,6 +561,9 @@ getargs (argc, argv)
 	  break;
 	case 'p':
 	  output_format = posix_format;
+	  break;
+	case 'q':
+	  quiet = true;
 	  break;
 	case 'v':
 	  verbose = true;
@@ -642,9 +652,9 @@ main (argc, argv)
   fflush (outfp);
 
   if (WIFSTOPPED (res.waitstatus))
-    exit (WSTOPSIG (res.waitstatus));
+    exit (WSTOPSIG (res.waitstatus) + 128);
   else if (WIFSIGNALED (res.waitstatus))
-    exit (WTERMSIG (res.waitstatus));
+    exit (WTERMSIG (res.waitstatus) + 128);
   else if (WIFEXITED (res.waitstatus))
     exit (WEXITSTATUS (res.waitstatus));
 }
@@ -657,7 +667,7 @@ usage (stream, status)
   fprintf (stream, "\
 Usage: %s [-apvV] [-f format] [-o file] [--append] [--verbose]\n\
        [--portability] [--format=format] [--output=file] [--version]\n\
-       [--help] command [arg...]\n",
+       [--quiet] [--help] command [arg...]\n",
 	   program_name);
   exit (status);
 }
