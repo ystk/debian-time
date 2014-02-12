@@ -11,12 +11,6 @@
 @finalout
 @end iftex
 
-@dircategory Individual utilities
-@direntry
-* time: (time).                     Run programs and summarize
-                                    system resource usage.
-@end direntry
-
 @ifinfo
 This file documents the the GNU @code{time} command for running programs
 and summarizing the system resources they use.
@@ -190,10 +184,6 @@ real %e
 user %U
 sys %S
 @end example
-
-@item -q
-@itemx --quiet
-Suppress non-zero error code from the executed program.
 
 @item -v
 @itemx --verbose

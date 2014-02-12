@@ -1,5 +1,23 @@
---- time.c.orig	Thu Jun 13 15:38:21 1996
-+++ time.c	Mon Feb  7 22:32:42 2000
+Description: Adds -q,--quiet functionality.
+ Requested by Adam Heath.
+Author: Dirk Eddelbuettel
+Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=56853
+
+--- time-1.7.orig/time.texi
++++ time-1.7/time.texi
+@@ -185,6 +191,10 @@
+ sys %S
+ @end example
+ 
++@item -q
++@itemx --quiet
++Suppress non-zero error code from the executed program.
++
+ @item -v
+ @itemx --verbose
+ @cindex format
+--- time-1.7.orig/time.c
++++ time-1.7/time.c
 @@ -147,6 +147,10 @@
    NULL
  };

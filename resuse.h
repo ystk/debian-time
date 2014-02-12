@@ -36,8 +36,19 @@ struct timeval
 # include <sys/rusage.h>
 #else
 # define TV_MSEC tv_usec / 1000
-# if HAVE_SYS_RESOURCE_H
+# if HAVE_WAIT3
 #  include <sys/resource.h>
+# else
+/* Process resource usage structure.  */
+struct rusage
+{
+  struct timeval ru_utime;	/* User time used.  */
+  struct timeval ru_stime;	/* System time used.  */
+  int ru_maxrss, ru_ixrss, ru_idrss, ru_isrss,
+  ru_minflt, ru_majflt, ru_nswap, ru_inblock, 
+  ru_oublock, ru_msgsnd, ru_msgrcv, ru_nsignals,
+  ru_nvcsw, ru_nivcsw;
+};
 # endif
 #endif
 
