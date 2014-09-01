@@ -1,3 +1,14 @@
+time (1.7-25) unstable; urgency=medium
+
+  * Patch for HZ and time.h inclusion.  Good in general and needed for
+    Hurd.  Thanks Pino Toscano.  (Closes: #704283)
+  * Improve -p,--portability documentation.  Thanks Jonathan Nieder.
+    (Closes: #511456)
+  * Remove build dependency on texi2html.  Thanks lintian.
+  * Rebuild will acquire latest dpkg-buildflags settings.
+
+ -- Bob Proulx <bob@proulx.com>  Sun, 09 Feb 2014 16:46:39 -0700
+
 time (1.7-24) unstable; urgency=low
 
   * New maintainer.  Thanks Tollef Fog Heen.  (Closes: #652670)
@@ -24,7 +35,7 @@ time (1.7-24) unstable; urgency=low
   * Fix texinfo standalone info program navigation oddity.  Reported by
     Russ Allbery.  See Bug#677013#63.
 
- -- Bob Proulx <bob@proulx.com>  Mon, 23 Feb 2012 12:55:30 -0700
+ -- Bob Proulx <bob@proulx.com>  Thu, 23 Feb 2012 12:55:30 -0700
 
 time (1.7-23.1) unstable; urgency=low
 

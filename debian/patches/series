@@ -6,3 +6,5 @@ bug-address.patch
 configure.patch
 info-direntry.patch
 info-nav.patch
+time-include-time_h.patch
+option-p-texi.patch

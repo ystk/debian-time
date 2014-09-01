@@ -2,8 +2,8 @@ Source: time
 Section: utils
 Priority: standard
 Maintainer: Bob Proulx <bob@proulx.com>
-Standards-Version: 3.9.3
-Build-Depends: debhelper (>= 9), texi2html, texinfo, automake | automaken, autoconf, dh-autoreconf
+Standards-Version: 3.9.5
+Build-Depends: debhelper (>= 9), texinfo, automake | automaken, autoconf, dh-autoreconf
 
 Package: time
 Architecture: any

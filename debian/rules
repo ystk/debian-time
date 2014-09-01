@@ -3,7 +3,7 @@
 	dh $@ --with autoreconf
 
 override_dh_installdocs:
-	texi2html -monolithic time.texi
+	makeinfo --no-split --html time.texi
 	dh_installdocs time.html
 
 override_dh_installman:
